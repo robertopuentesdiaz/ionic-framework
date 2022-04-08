@@ -106,6 +106,7 @@ export const parseDate = (val: string | undefined | null): any | undefined => {
     second: parse[6],
     millisecond: parse[7],
     tzOffset,
+    ampm: parse[4] >= 12 ? 'pm' : 'am',
   };
 };
 
