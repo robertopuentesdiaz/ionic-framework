@@ -178,6 +178,24 @@
               ></ion-datetime>
             </ion-popover>
           </div>
+          <div class="grid-item">
+            <h2>preferWheel</h2>
+
+            <ion-item>
+              <ion-label>Start Date</ion-label>
+              <ion-datetime-button slot="end" id="prefer-wheel-button" datetime="prefer-wheel-datetime"></ion-datetime-button>
+            </ion-item>
+
+            <ion-popover arrow="false" trigger="prefer-wheel-button">
+              <ion-datetime
+                locale="en-US"
+                prefer-wheel="true"
+                presentation="date-time"
+                id="prefer-wheel-datetime"
+                value="2022-03-15T00:43:00"
+              ></ion-datetime>
+            </ion-popover>
+          </div>
         </div>
       </ion-content>
     </ion-app>
