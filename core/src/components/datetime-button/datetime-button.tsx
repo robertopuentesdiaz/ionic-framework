@@ -7,7 +7,7 @@ import { createColorClasses } from '@utils/theme';
 import { getIonMode } from '../../global/ionic-global';
 import type { Color, DatetimePresentation } from '../../interface';
 import { getToday } from '../datetime/utils/data';
-import { getFormattedTime, getMonthAndYear, getMonthDayAndYear, getLocalizedDateTime } from '../datetime/utils/format';
+import { getLocalizedTime, getMonthAndYear, getMonthDayAndYear, getLocalizedDateTime } from '../datetime/utils/format';
 import { is24Hour } from '../datetime/utils/helpers';
 import { parseDate } from '../datetime/utils/parse';
 
@@ -166,13 +166,13 @@ export class DatetimeButton implements ComponentInterface {
       case 'date-time':
       case 'time-date':
         this.dateText = getMonthDayAndYear(locale, parsedDatetime);
-        this.timeText = getFormattedTime(parsedDatetime, use24Hour);
+        this.timeText = getLocalizedTime(locale, parsedDatetime, use24Hour);
         break;
       case 'date':
         this.dateText = getMonthDayAndYear(locale, parsedDatetime);
         break;
       case 'time':
-        this.timeText = getFormattedTime(parsedDatetime, use24Hour);
+        this.timeText = getLocalizedTime(locale, parsedDatetime, use24Hour);
         break;
       case 'month-year':
         this.dateText = getMonthAndYear(locale, parsedDatetime);
