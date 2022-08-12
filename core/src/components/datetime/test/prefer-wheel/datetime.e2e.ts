@@ -89,7 +89,7 @@ test.describe('datetime: prefer wheel', () => {
       expect(await yearValues.count()).toBe(3);
       expect(await dayValues.count()).toBe(5);
     });
-    test.only('should not reset to the first item when changing months', async ({ page }) => {
+    test('should not reset to the first item when changing months', async ({ page }) => {
       await page.setContent(`
         <ion-datetime
           presentation="date"

@@ -3,7 +3,7 @@ import type { E2EPage } from '@utils/test/playwright';
 import { test } from '@utils/test/playwright';
 
 test.describe('datetime: minmax', () => {
-  test.only('switching between years should not jump calendar to max', async ({ page }) => {
+  test('switching between years should not jump calendar to max', async ({ page }) => {
     await page.setContent(`
       <ion-datetime locale="en-US" value="2020-12-01" max="2021-04-01"></ion-datetime>
 
