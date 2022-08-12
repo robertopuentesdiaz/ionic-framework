@@ -33,7 +33,7 @@ test.describe('datetime: minmax', () => {
 
     await monthDidChangeSpy.next();
 
-    await expect(calendarMonthYear).toHaveText(/January 2020/);
+    await expect(calendarMonthYear).toHaveText(/January 2021/);
   });
 
   test('calendar arrow navigation should respect min/max values', async ({ page }) => {
