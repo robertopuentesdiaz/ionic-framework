@@ -116,10 +116,21 @@ export class PickerColumnInternal implements ComponentInterface {
   }
 
   componentDidRender() {
-    const { activeItem, isColumnVisible } = this;
+    const { activeItem, isColumnVisible, el } = this;
 
-    if (isColumnVisible && activeItem) {
-      this.scrollActiveItemIntoView();
+    if (isColumnVisible) {
+      if (activeItem) {
+        this.scrollActiveItemIntoView();
+      } else {
+
+        /**
+         * Newer browsers will automatically re-snap
+         * a scroll snapping area when the items in a
+         * container change. For older browsers, we need to
+         * dispatch a scroll event to have that happen.
+         */
+        el.scrollBy(0, 0);
+      }
     }
   }
 
