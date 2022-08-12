@@ -122,7 +122,6 @@ export class PickerColumnInternal implements ComponentInterface {
       if (activeItem) {
         this.scrollActiveItemIntoView();
       } else {
-
         /**
          * Newer browsers will automatically re-snap
          * a scroll snapping area when the items in a
