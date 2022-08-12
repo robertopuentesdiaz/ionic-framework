@@ -3,6 +3,39 @@ import type { E2EPage } from '@utils/test/playwright';
 import { test } from '@utils/test/playwright';
 
 test.describe('datetime: minmax', () => {
+  test.only('switching between years should not jump calendar to max', async ({ page }) => {
+    await page.setContent(`
+      <ion-datetime locale="en-US" value="2020-12-01" max="2021-04-01"></ion-datetime>
+
+      <script>
+        const observer = new MutationObserver((mutationRecords) => {
+          if (mutationRecords) {
+            window.dispatchEvent(new CustomEvent('datetimeMonthDidChange'));
+          }
+        });
+
+        const initDatetimeChangeEvent = () => {
+          observer.observe(document.querySelector('ion-datetime').shadowRoot.querySelector('.calendar-body'), {
+            subtree: true,
+            childList: true
+          });
+        }
+      </script>
+    `);
+
+    await page.waitForSelector('.datetime-ready');
+    await page.evaluate('initDatetimeChangeEvent()');
+
+    const monthDidChangeSpy = await page.spyOnEvent('datetimeMonthDidChange');
+    const nextButton = page.locator('ion-datetime .calendar-next-prev ion-button:nth-child(2)');
+    const calendarMonthYear = page.locator('ion-datetime .calendar-month-year');
+    await nextButton.click();
+
+    await monthDidChangeSpy.next();
+
+    await expect(calendarMonthYear).toHaveText(/January 2020/);
+  });
+
   test('calendar arrow navigation should respect min/max values', async ({ page }) => {
     test.info().annotations.push({
       type: 'issue',

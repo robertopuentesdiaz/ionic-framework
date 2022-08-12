@@ -89,6 +89,25 @@ test.describe('datetime: prefer wheel', () => {
       expect(await yearValues.count()).toBe(3);
       expect(await dayValues.count()).toBe(5);
     });
+    test.only('should not reset to the first item when changing months', async ({ page }) => {
+      await page.setContent(`
+        <ion-datetime
+          presentation="date"
+          prefer-wheel="true"
+          value="2020-07-31"
+        ></ion-datetime>
+      `);
+
+      await page.waitForSelector('.datetime-ready');
+
+      const monthJune = page.locator('ion-datetime .month-column .picker-item[data-value="6"]');
+      const activeDay = page.locator('ion-datetime .day-column .picker-item.picker-item-active');
+
+      await monthJune.click();
+      await page.waitForChanges();
+
+      await expect(activeDay).toHaveText(/30/);
+    });
     test.describe('datetime: date wheel localization', () => {
       test('should correctly localize the date data', async ({ page }) => {
         await page.setContent(`
