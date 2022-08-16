@@ -300,13 +300,22 @@ export class PickerColumnInternal implements ComponentInterface {
 
     const scrollCallback = () => {
       raf(() => {
+        const mode = getIonMode(this);
+
+        /**
+         * The haptics on Android feel slightly
+         * different than on iOS. As a result, there
+         * are not really appropriate for this use case.
+         */
+        const enableHaptics = mode === 'ios';
+
         if (timeout) {
           clearTimeout(timeout);
           timeout = undefined;
         }
 
         if (!this.isScrolling) {
-          hapticSelectionStart();
+          enableHaptics && hapticSelectionStart();
           this.isScrolling = true;
         }
 
@@ -332,7 +341,7 @@ export class PickerColumnInternal implements ComponentInterface {
          * we need to run haptics again.
          */
         if (activeElement !== activeEl) {
-          hapticSelectionChanged();
+          enableHaptics && hapticSelectionChanged();
         }
 
         activeEl = activeElement;
@@ -340,7 +349,7 @@ export class PickerColumnInternal implements ComponentInterface {
 
         timeout = setTimeout(() => {
           this.isScrolling = false;
-          hapticSelectionEnd();
+          enableHaptics && hapticSelectionEnd();
 
           /**
            * Certain tasks (such as those that
