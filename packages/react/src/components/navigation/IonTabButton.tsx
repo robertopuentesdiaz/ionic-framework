@@ -12,7 +12,7 @@ type Props = LocalJSX.IonTabButton &
     onClick?: (e: any) => void;
   };
 
-export class IonTabButton extends React.Component<Props> {
+export class IonTabButton extends React.Component<PropsWithChildren<Props>> {
   constructor(props: Props) {
     super(props);
     this.handleIonTabButtonClick = this.handleIonTabButtonClick.bind(this);
